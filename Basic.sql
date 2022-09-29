@@ -102,11 +102,3 @@ SELECT CONCAT("There are a total of", ' ', COUNT(occupation), ' ', LOWER(occupat
 FROM occupations
 GROUP BY occupation
 ORDER BY COUNT(occupation) ASC;
-
-
-
-
-
-
-
-
