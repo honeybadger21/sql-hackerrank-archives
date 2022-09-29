@@ -78,13 +78,3 @@ FROM STATION
 
 -- Weather Observation Station 20
 SELECT ROUND(LAT_N,4) FROM STATION ORDER BY LAT_N LIMIT 1 OFFSET 249
-
-
-
-
-
-
-
-
-
-
