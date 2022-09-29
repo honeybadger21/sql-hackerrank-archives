@@ -49,7 +49,6 @@ where REGEXP_LIKE(city,'[^aeiou]$') or REGEXP_LIKE(city,'^[^aeiou]')
 select distinct city from station 
 where REGEXP_LIKE(city,'[^aeiou]$') and REGEXP_LIKE(city,'^[^aeiou]')
 
-
 -- Weather Observation Station 13
 select round(sum(lat_n), 4) from station
 where lat_n < 137.2345 and lat_n > 38.7880
