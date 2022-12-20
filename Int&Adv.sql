@@ -17,3 +17,18 @@ SELECT C.company_code, C.founder,
        COUNT(DISTINCT E.lead_manager_code), COUNT(DISTINCT E.senior_manager_code), 
        COUNT(DISTINCT E.manager_code), COUNT(DISTINCT E.employee_code)
 FROM company as C INNER JOIN employee as E USING(company_code) GROUP BY c.company_code, c.founder
+
+-- Problem 03: Draw the Triangle 1
+DELIMITER $$
+
+CREATE PROCEDURE DrawTriangle(IN p int)
+BEGIN
+  WHILE p > 0 DO
+    SELECT REPEAT('* ', p);  
+    SET p = p - 1;
+  END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL DrawTriangle(20);
