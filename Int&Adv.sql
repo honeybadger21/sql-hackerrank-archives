@@ -32,3 +32,20 @@ END$$
 DELIMITER ;
 
 CALL DrawTriangle(20);
+
+-- Problem 04: Draw the Triangle 2
+DELIMITER $$
+
+CREATE PROCEDURE DrawTriangle(IN p int)
+BEGIN
+  WHILE p < 21 DO
+    SELECT REPEAT('* ', p);  
+    SET p = p + 1;
+  END WHILE;
+END$$
+
+DELIMITER ;
+
+CALL DrawTriangle(1);
+
+-- Problem 05: 
