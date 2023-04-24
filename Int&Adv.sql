@@ -65,3 +65,16 @@ SELECT name, occupation, row_number() OVER (PARTITION BY occupation ORDER BY nam
 FROM Occupations
 ) AS row_nm
 GROUP BY name_order;
+
+-- Problem 06: TOP COMPETITORS
+SELECT hacker_id, name FROM
+
+(SELECT h.hacker_id, h.name, count(s.submission_id) as count_max
+FROM Submissions s JOIN Challenges c ON s.challenge_id = c.challenge_id
+               JOIN Difficulty d ON c.difficulty_level = d.difficulty_level
+               JOIN Hackers h ON s.hacker_id = h.hacker_id
+WHERE s.score = d.score
+GROUP BY 1, 2
+ORDER BY 3 DESC, 1) as cte
+
+WHERE count_max > 1
