@@ -53,3 +53,15 @@ SELECT X, Y FROM (SELECT T1.X, T1.Y FROM FUNCTIONS T1 INNER JOIN FUNCTIONS T2 ON
                     T1.X = T2.Y AND T1.Y = T2.X AND T1.X < T1.Y 
                         UNION SELECT X, Y FROM FUNCTIONS GROUP BY X, Y HAVING COUNT(*)>1)T1
 ORDER BY X
+
+-- Problem 06: OCCUPATIONS
+SELECT MAX(IF(occupation = 'Doctor', name, null)) AS Doctor,
+       MAX(IF(occupation = 'Professor', name, null)) AS Professor,
+       MAX(IF(occupation = 'Singer', name, null)) AS Singer,
+       MAX(IF(occupation = 'Actor', name, null)) AS Actor
+FROM
+(
+SELECT name, occupation, row_number() OVER (PARTITION BY occupation ORDER BY name) name_order
+FROM Occupations
+) AS row_nm
+GROUP BY name_order;
