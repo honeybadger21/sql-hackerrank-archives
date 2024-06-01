@@ -86,4 +86,12 @@ A.coins_needed = (SELECT MIN(coins_needed) FROM Wands A1 JOIN Wands_Property B1 
                                 WHERE A1.power = A.power AND B1.age = B.age)
 ORDER BY A.power DESC, B.age DESC
 
+-- Problem 08: Challenges
+WITH CTE AS
+(SELECT A.hacker_id, A.name, COUNT(B.challenge_id) AS total FROM Hackers A JOIN Challenges B On A.hacker_id = B.hacker_id GROUP BY 1, 2)
+
+SELECT * FROM CTE WHERE total = (SELECT MAX(total) FROM CTE)
+                                        OR total IN (SELECT total FROM CTE GROUP BY total HAVING count(*) = 1)
+ORDER BY total DESC, hacker_id
+
 
