@@ -94,4 +94,13 @@ SELECT * FROM CTE WHERE total = (SELECT MAX(total) FROM CTE)
                                         OR total IN (SELECT total FROM CTE GROUP BY total HAVING count(*) = 1)
 ORDER BY total DESC, hacker_id
 
+-- Problem 09: Contest Leaderboard
+select h.hacker_id, h.name, sum(max_score) as total_score
+from (select s.hacker_id, s.challenge_id, max(s.score) as max_score
+     from Submissions s
+     group by 1,2) a 
+join Hackers h on h.hacker_id=a.hacker_id
+group by 1, 2
+having total_score>0
+order by total_score desc, h.hacker_id asc
 
