@@ -78,3 +78,12 @@ GROUP BY 1, 2
 ORDER BY 3 DESC, 1) as cte
 
 WHERE count_max > 1
+
+-- Problem 07: Ollivander's Inventory
+SELECT A.id, B.age, A.coins_needed, A.power FROM Wands A JOIN Wands_Property B ON A.code = B.code 
+WHERE B.is_evil = 0 AND
+A.coins_needed = (SELECT MIN(coins_needed) FROM Wands A1 JOIN Wands_Property B1 ON A1.code = B1.code 
+                                WHERE A1.power = A.power AND B1.age = B.age)
+ORDER BY A.power DESC, B.age DESC
+
+
