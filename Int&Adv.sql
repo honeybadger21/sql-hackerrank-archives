@@ -104,3 +104,10 @@ group by 1, 2
 having total_score>0
 order by total_score desc, h.hacker_id asc
 
+-- Problem 10: Placements 
+select name from (
+select a.id, a.name, b.friend_id, c.salary from 
+students a inner join friends b on a.id = b.id inner join packages c on b.id = c.id
+) d inner join packages e on d.friend_id = e.id
+where d.salary < e.salary order by e.salary
+
