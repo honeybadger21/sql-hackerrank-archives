@@ -122,3 +122,21 @@ LEFT JOIN ( SELECT challenge_id, SUM(total_views) AS total_views, SUM(total_uniq
 GROUP BY c.contest_id, c.hacker_id, c.name 
 
 HAVING (SUM(COALESCE(s.total_submissions, 0)) + SUM(COALESCE(s.total_accepted_submissions, 0)) + SUM(COALESCE(v.total_views, 0)) + SUM(COALESCE(v.total_unique_views, 0))) > 0 ORDER BY c.contest_id;
+
+-- Problem 12: Print Prime Numbers (IMP question, keep this in mind)
+WITH recursive cte_numgen AS (
+    SELECT 2 AS n
+    UNION ALL
+    SELECT n+1 FROM cte_numgen WHERE n < 1000
+)
+SELECT 
+    GROUP_CONCAT(a.n SEPARATOR '&') AS prime_string
+FROM cte_numgen a
+WHERE NOT  EXISTS (
+    SELECT 1
+    FROM cte_numgen b
+    WHERE a.n > b.n AND a.n % b.n = 0
+
+-- Problem 13: 
+
+-- Problem 14: 
