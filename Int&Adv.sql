@@ -111,3 +111,14 @@ students a inner join friends b on a.id = b.id inner join packages c on b.id = c
 ) d inner join packages e on d.friend_id = e.id
 where d.salary < e.salary order by e.salary
 
+-- Problem 11: Interviews (This is a GOOD question, looks straightforward but isn't)
+SELECT c.contest_id, c.hacker_id, c.name, SUM(COALESCE(s.total_submissions, 0)) AS total_submissions, SUM(COALESCE(s.total_accepted_submissions, 0)) AS total_accepted_submissions, SUM(COALESCE(v.total_views, 0)) AS total_views, SUM(COALESCE(v.total_unique_views, 0)) AS total_unique_views 
+
+FROM contests c JOIN colleges col ON c.contest_id = col.contest_id JOIN challenges chal ON col.college_id = chal.college_id 
+
+LEFT JOIN ( SELECT challenge_id, SUM(total_submissions) AS total_submissions, SUM(total_accepted_submissions) AS total_accepted_submissions FROM Submission_Stats GROUP BY challenge_id ) s ON chal.challenge_id = s.challenge_id 
+LEFT JOIN ( SELECT challenge_id, SUM(total_views) AS total_views, SUM(total_unique_views) AS total_unique_views FROM view_stats GROUP BY challenge_id ) v ON chal.challenge_id = v.challenge_id 
+
+GROUP BY c.contest_id, c.hacker_id, c.name 
+
+HAVING (SUM(COALESCE(s.total_submissions, 0)) + SUM(COALESCE(s.total_accepted_submissions, 0)) + SUM(COALESCE(v.total_views, 0)) + SUM(COALESCE(v.total_unique_views, 0))) > 0 ORDER BY c.contest_id;
