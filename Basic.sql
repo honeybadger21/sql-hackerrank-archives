@@ -95,6 +95,7 @@ inner join city on city.countrycode = country.code
 group by country.continent
 
 -- Problem 22: The PADS
+    -- Method 1
 SELECT CONCAT(name, '(', UPPER(substring(occupation, 1, 1)), ')') FROM occupations
 ORDER BY name;
 
@@ -102,3 +103,7 @@ SELECT CONCAT("There are a total of", ' ', COUNT(occupation), ' ', LOWER(occupat
 FROM occupations
 GROUP BY occupation
 ORDER BY COUNT(occupation) ASC;
+
+    -- Method 2
+select concat(name, '(', LEFT(occupation, 1), ')') from occupations order by name;
+select concat('There are a total of ', COUNT(occupation), ' ', lower(occupation), 's.') from occupations group by occupation order by count(occupation), occupation;
