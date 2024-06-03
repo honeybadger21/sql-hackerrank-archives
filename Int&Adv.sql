@@ -147,4 +147,13 @@ GROUP BY ProjectDays
 ORDER BY DATEDIFF(MAX(End_Date), MIN(Start_Date)), MIN(Start_Date);
 
 
--- Problem 14: 15 Days of Learning SQL
+-- Problem 14: The Report
+select case
+    when marks<70 then 'NULL'
+    else name
+    end,
+grade, marks from students, grades where marks between min_mark and
+    max_mark order by grade desc, name, marks;
+
+
+-- Problem 15: 15 Days of Learning SQL
